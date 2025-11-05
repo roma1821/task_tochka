@@ -21,7 +21,7 @@ def parse_input(lines):
         rooms.append(tuple(reversed(i)))
     return tuple('.' for _ in range(11)), tuple(rooms), depth
 
-def is_room_done(room, room_type, depth):
+def room_done(room, room_type, depth):
     # Проверяет готова ли конкретная комната
     if len(room) != depth:
         return False
@@ -69,7 +69,7 @@ def get_moves(hallway, rooms, depth):
         if not room:
             continue
         room_type = 'ABCD'[room_idx]
-        if is_room_done(room, room_type, depth):
+        if room_done(room, room_type, depth):
             continue
         obj = room[-1]
         entrance = ROOM_ENTRANCES[room_idx]
@@ -89,7 +89,7 @@ def get_moves(hallway, rooms, depth):
 def is_final(rooms, depth):
     # Все ли объекты на своих местах
     for i in range(4):
-        if not is_room_done(rooms[i], 'ABCD'[i], depth):
+        if not room_done(rooms[i], 'ABCD'[i], depth):
             return False
     return True
 
